@@ -18,6 +18,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var surnameLabel: UILabel!
     @IBOutlet weak var surnameTextField: UITextField!
     
+    var personViewController: PersonViewController?
+    
     @IBAction func confirmButton(_ sender: Any) {
         if let name = nameTextField.text, let surname = surnameTextField.text {
             if name.isEmpty || surname.isEmpty {
@@ -27,7 +29,12 @@ class MainViewController: UIViewController {
                 present(alert, animated: true, completion: nil)
                 return
             }
-            print("The user's name is \(name) \(surname)")
+            let person = Person(name: name, surname: surname)
+            
+            personViewController = PersonViewController()
+            personViewController?.present(person: person, On: self)
+            
+//            print("The user's name is \(name) \(surname)")
         }
     }
     
@@ -52,6 +59,7 @@ class MainViewController: UIViewController {
         
         nameTextField.placeholder = "Anna"
         nameTextField.autocapitalizationType = .words
+        
         surnameTextField.placeholder = "Arendelle"
         surnameTextField.autocapitalizationType = .words
     }
